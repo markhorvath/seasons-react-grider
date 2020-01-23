@@ -1,4 +1,11 @@
+import './SeasonDisplay.css';
 import React from 'react';
+
+const seasonConfig = {
+    // "\" escapes the single quote from affecting the string
+    summer: {text: 'Let\'s hit the beach', iconName: 'sun'},
+    winter: {text: 'Burr, it\'s chilly', iconName: 'snowflake'}
+};
 
 const getSeason = (lat, month) => {
     //if statement and ternarys to determine season based on month and lattitude
@@ -11,17 +18,17 @@ const getSeason = (lat, month) => {
 
 const SeasonDisplay = (props) => {
     const season = getSeason(props.lat, new Date().getMonth());
-    // this logic could also be put directly in the object (where text is)
-    const text = season === 'winter' ? "Burr, it's chilly" : "Beach time";
-    const icon = season === 'winter' ? 'snowflake' : 'sun';
+    // this is an example of destructuring
+    const { text, iconName } = seasonConfig[season] // { text, iconName }
 
     return (
-        <div>
-    {/*the back-ticks are template strings from ES2015, takes the value of whatever icon is and passes it as a string*/}
-        <i className={`${icon} icon`} />
-        <h1>{text}</h1>
-        <i className={`${icon} icon`} />
-        <br />Latitude: {props.lat}, Longitude: {props.lng}</div>
+        //className of root div has classname equal to (more or less) the component name, just a good practice
+        //the back-ticks are template strings from ES2015, takes the value of whatever icon is and passes it as a string*/
+        <div className={`season-display ${season}`}>
+            <i className={`icon-left massive ${iconName} icon`} />
+            <h1>{text}</h1>
+            <i className={`icon-right massive ${iconName} icon`} />
+        </div>
     );
 }
 
