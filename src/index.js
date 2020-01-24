@@ -20,12 +20,8 @@ class App extends React.Component {
 //     componentDidUpdate() {
 // console.log('ddi update');
 //     }
+    renderContent() {
 
-
-
-    //render always must be defined in class components
-    render() {
-        let divStyle = {color: 'blue', fontSize: 48, marginTop: 60};
         if(this.state.errorMessage && !this.state.lat) {
             return <div>Error: {this.state.errorMessage}</div>;
         }
@@ -34,7 +30,20 @@ class App extends React.Component {
             return <SeasonDisplay lat={this.state.lat} lng={this.state.lng} />
         }
 
-        return <Spinner />;
+        return <Spinner message="Please accept location request" />;
+    }
+
+
+    //render always must be defined in class components
+    render() {
+        //this is just an example of how you might render conditional components, with the
+        //border just an example of something you might want to be around every potential component
+        const divStyle = {borderColor: 'red', borderWidth: 10, borderStyle: 'solid'};
+        return (
+            <div style={divStyle}>
+                {this.renderContent()}
+            </div>
+        )
     }
 }
 
